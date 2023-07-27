@@ -38,9 +38,10 @@ public class BoatElevatorFix extends JavaPlugin implements Listener {
         if(event.isCancelled()) {
             return;
         }
-        if(!(event.getVehicle() instanceof Boat boat)) {
+        if(!(event.getVehicle() instanceof Boat)) {
             return;
         }
+        Boat boat = (Boat) event.getVehicle();
         if(boat.getStatus() != Boat.Status.UNDER_WATER) {
             return;
         }
