@@ -5,3 +5,8 @@ column/water elevator with a boat.
 
 There is no configuration, and it works in both directions,
 upwards (soul sand) and downwards (magma blocks).
+
+## Supported Versions
+
+Java: ``<= Java 11``
+Spigot: ``<= 1.13``
