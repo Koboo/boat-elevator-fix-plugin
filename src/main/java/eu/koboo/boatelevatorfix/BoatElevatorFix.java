@@ -11,7 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.plugin.PluginLoadOrder;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.annotation.plugin.*;
+import org.bukkit.plugin.java.annotation.plugin.ApiVersion;
+import org.bukkit.plugin.java.annotation.plugin.Description;
+import org.bukkit.plugin.java.annotation.plugin.LoadOrder;
+import org.bukkit.plugin.java.annotation.plugin.Plugin;
+import org.bukkit.plugin.java.annotation.plugin.Website;
 import org.bukkit.plugin.java.annotation.plugin.author.Author;
 
 @Plugin(name = "PROJECT_NAME", version = "PROJECT_VERSION")
@@ -22,35 +26,32 @@ import org.bukkit.plugin.java.annotation.plugin.author.Author;
 @Website("PROJECT_WEBSITE")
 public class BoatElevatorFix extends JavaPlugin implements Listener {
 
-    @Override
-    public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
-        super.onEnable();
-    }
+  @Override
+  public void onEnable() {
+    Bukkit.getPluginManager().registerEvents(this, this);
+    super.onEnable();
+  }
 
-    @Override
-    public void onDisable() {
-        super.onDisable();
-    }
+  @Override
+  public void onDisable() {
+    super.onDisable();
+  }
 
-    @EventHandler
-    public void onEject(VehicleExitEvent event) {
-        if(event.isCancelled()) {
-            return;
-        }
-        if(!(event.getVehicle() instanceof Boat)) {
-            return;
-        }
-        Boat boat = (Boat) event.getVehicle();
-        if(boat.getStatus() != Boat.Status.UNDER_WATER) {
-            return;
-        }
-        LivingEntity exited = event.getExited();
-        Block eyeBlock = exited.getEyeLocation().getBlock();
-        BlockData blockBlockData = eyeBlock.getBlockData();
-        if(!(blockBlockData instanceof BubbleColumn)) {
-            return;
-        }
-        event.setCancelled(true);
+  @EventHandler
+  public void onEject(VehicleExitEvent event) {
+    if (event.isCancelled()) {
+      return;
     }
+    if (!(event.getVehicle() instanceof Boat)) {
+      return;
+    }
+    Boat boat = (Boat) event.getVehicle();
+    LivingEntity exited = event.getExited();
+    Block eyeBlock = exited.getEyeLocation().getBlock();
+    BlockData blockBlockData = eyeBlock.getBlockData();
+    if (!(blockBlockData instanceof BubbleColumn)) {
+      return;
+    }
+    event.setCancelled(true);
+  }
 }
