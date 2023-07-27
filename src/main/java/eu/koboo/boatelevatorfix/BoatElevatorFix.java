@@ -32,13 +32,8 @@ public class BoatElevatorFix extends JavaPlugin implements Listener {
     super.onEnable();
   }
 
-  @Override
-  public void onDisable() {
-    super.onDisable();
-  }
-
   @EventHandler
-  public void onEject(VehicleExitEvent event) {
+  public void onVehicleExit(VehicleExitEvent event) {
     if (event.isCancelled()) {
       return;
     }
