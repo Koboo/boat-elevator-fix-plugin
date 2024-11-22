@@ -47,11 +47,9 @@ public class BoatElevatorFix extends JavaPlugin implements Listener {
     @EventHandler
     public void onVehicleExit(VehicleExitEvent event) {
         if (event.isCancelled()) {
-            System.out.println("Cancelled");
             return;
         }
         if (!(event.getVehicle() instanceof Boat)) {
-            System.out.println("not a boat");
             return;
         }
         Boat boat = (Boat) event.getVehicle();
@@ -69,38 +67,9 @@ public class BoatElevatorFix extends JavaPlugin implements Listener {
             }
         }
         if (!isBubbleColumn) {
-            System.out.println("Not a column");
             return;
         }
         event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onCollision(VehicleCollisionEvent event) {
-        if (event.getVehicle() instanceof Boat) {
-            System.out.println("Collosion boat");
-        }
-    }
-
-    @EventHandler
-    public void onBlockCollision(VehicleBlockCollisionEvent event) {
-        if (event.getVehicle() instanceof Boat) {
-            System.out.println("block Collosion boat");
-        }
-    }
-
-    @EventHandler
-    public void onDamage(VehicleDamageEvent event) {
-        if (event.getVehicle() instanceof Boat) {
-            System.out.println("Damage boat");
-        }
-    }
-
-    @EventHandler
-    public void onEntityCollision(VehicleEntityCollisionEvent event) {
-        if (event.getVehicle() instanceof Boat) {
-            System.out.println("Entity Collision boat");
-        }
     }
 
     @EventHandler
@@ -134,7 +103,6 @@ public class BoatElevatorFix extends JavaPlugin implements Listener {
         if(above.getBlockData() instanceof BubbleColumn) {
             return;
         }
-        System.out.println("move boat " + boat.getVelocity());
         boat.setVelocity(new Vector(0, 0, 0));
     }
 }
