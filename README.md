@@ -13,6 +13,4 @@ Spigot: ``<= 1.13``
 
 ## Related Mojang issues:
 
-- (https://bugs.mojang.com/browse/MC-153048)
 - (https://bugs.mojang.com/browse/MC-154589)
-- (https://bugs.mojang.com/browse/MC-125272)
