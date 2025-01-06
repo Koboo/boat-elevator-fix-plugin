@@ -1,49 +1,39 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.0.0'
-    id 'net.kyori.blossom' version '1.2.0'
 }
 
-group = "$projectGroup"
-version = "$projectVersion"
+group = "eu.koboo"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
     maven {
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        name('spigot-repo')
+        url('https://hub.spigotmc.org/nexus/content/repositories/snapshots/')
     }
     maven {
-        url 'https://reposilite.koboo.eu/releases'
+        name('sonatype-repo')
+        url('https://oss.sonatype.org/content/repositories/snapshots/')
     }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT'
+    compileOnly('org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT')
 
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
-    compileOnly "org.spigotmc:plugin-annotations:$pluginAnnotationsVersion"
-    annotationProcessor "org.spigotmc:plugin-annotations:$pluginAnnotationsVersion"
+    compileOnly('org.projectlombok:lombok:1.18.36')
+    annotationProcessor('org.projectlombok:lombok:1.18.36')
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
     targetCompatibility = JavaVersion.VERSION_11
     sourceCompatibility = JavaVersion.VERSION_11
+    toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 }
 
-compileJava {
-    options.fork = true
-    options.incremental = true
-    options.encoding = 'UTF-8'
-    options.release.set(11)
-}
-
-blossom {
-    replaceToken('PROJECT_NAME', project.name)
-    replaceToken('PROJECT_VERSION', project.version)
-    replaceToken('PROJECT_GROUP', projectGroup)
-    replaceToken('PROJECT_DESCRIPTION', projectDescription)
-    replaceToken('PROJECT_WEBSITE', projectWebsite)
+processResources {
+    filesMatching("**/plugin.yml") {
+        it.expand([
+                "boatelevatorfix_version": version.toString()
+        ])
+    }
 }
