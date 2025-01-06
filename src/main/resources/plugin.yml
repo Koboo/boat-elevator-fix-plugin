@@ -1,0 +1,6 @@
+name: BoatElevatorFix
+version: boatelevatorfix_version
+website: https://github.com/Koboo/boat-elevator-fix-plugin
+author: Koboo
+api-version: "1.13"
+main: eu.koboo.boatelevatorfix.BoatElevatorFixPlugin
