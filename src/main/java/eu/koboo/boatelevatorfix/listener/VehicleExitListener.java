@@ -37,7 +37,6 @@ public class VehicleExitListener implements Listener {
         }
         Vector velocity = boat.getVelocity();
         double heightVelocity = velocity.getY();
-        Bukkit.broadcastMessage("Velocity: " + velocity);
         if (heightVelocity == 0.0) {
             // Boat stopped travelling upwards, since we are still in a bubble column
             // we need to allow ejection by the player himself.
