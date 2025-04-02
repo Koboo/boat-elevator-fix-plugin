@@ -1,7 +1,7 @@
 package eu.koboo.boatelevatorfix.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.BubbleColumn;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.LivingEntity;
@@ -9,15 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleExitEvent;
-
-import java.util.Arrays;
-import java.util.List;
+import org.bukkit.util.Vector;
 
 public class VehicleExitListener implements Listener {
-
-    private static final List<BlockFace> SIDE_FACES = Arrays.asList(
-        BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST
-    );
 
     @EventHandler
     public void onVehicleExit(VehicleExitEvent event) {
@@ -28,17 +22,25 @@ public class VehicleExitListener implements Listener {
             return;
         }
         Boat boat = (Boat) event.getVehicle();
-        Block block = boat.getLocation().getBlock();
-        if (!(block.getBlockData() instanceof BubbleColumn)) {
+        LivingEntity exited = event.getExited();
+        if (!(exited instanceof Player)) {
             return;
         }
-        LivingEntity exited = event.getExited();
-        if(!(exited instanceof Player)) {
+        Block boatBlock = boat.getLocation().getBlock();
+        if (!(boatBlock.getBlockData() instanceof BubbleColumn)) {
             return;
         }
         Player player = (Player) exited;
-        Block headBlock = player.getEyeLocation().getBlock();
-        if(!(headBlock.getBlockData() instanceof BubbleColumn)) {
+        Block playerBlock = player.getLocation().getBlock();
+        if (!(playerBlock.getBlockData() instanceof BubbleColumn)) {
+            return;
+        }
+        Vector velocity = boat.getVelocity();
+        double heightVelocity = velocity.getY();
+        Bukkit.broadcastMessage("Velocity: " + velocity);
+        if (heightVelocity == 0.0) {
+            // Boat stopped travelling upwards, since we are still in a bubble column
+            // we need to allow ejection by the player himself.
             return;
         }
         event.setCancelled(true);
